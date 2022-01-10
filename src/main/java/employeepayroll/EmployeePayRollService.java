@@ -10,7 +10,13 @@ public class EmployeePayRollService {
 		// service.retrieveData();
 		// service.updateSalary("Terrisa", 3000000);
 		//service.updateSalaryUsingPreparedStatement("Lasya", 100000);
-		service.retrieveDataUsingPreparedStatement();
+		//service.retrieveDataUsingPreparedStatement();
+		service.retrieveDataUsingRange();
+	}
+
+	private void retrieveDataUsingRange() {
+		
+		System.out.println(respository.retrieveDataUsingRange());
 	}
 
 	private void retrieveDataUsingPreparedStatement() {

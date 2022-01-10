@@ -12,7 +12,7 @@ import java.util.List;
 public class EmployeePayRollRepository {
 
 	private Connection getConnection() {
-		
+
 		Connection connection = null;
 		try {
 			String URL = "jdbc:mysql://localhost:3306/emp_payroll_service";
@@ -23,19 +23,19 @@ public class EmployeePayRollRepository {
 			System.out.println("Connection not established.");
 		}
 		return connection;
-		
+
 	}
 
 	public List<Employee> retrieveData() {
-		
+
 		List<Employee> empList = new ArrayList<>();
 		try {
 			Connection connection = getConnection();
 			String query = "select * from employee;";
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
-			
-			while(resultSet.next()) {
+
+			while (resultSet.next()) {
 				Employee employee = new Employee();
 				employee.setId(resultSet.getInt("id"));
 				employee.setName(resultSet.getString("name"));
@@ -46,56 +46,57 @@ public class EmployeePayRollRepository {
 				empList.add(employee);
 			}
 		} catch (SQLException e) {
-		
+
 		}
-		
+
 		return empList;
-		
+
 	}
 
 	public void updateSalary(String name, int basic_pay) {
-		
-		try(Connection connection = getConnection()) {
+
+		try (Connection connection = getConnection()) {
 			Statement statement = connection.createStatement();
-			String query = String.format("update employee_payroll set basic_pay = %d where name = '%s'", basic_pay, name);
+			String query = String.format("update employee_payroll set basic_pay = %d where name = '%s'", basic_pay,
+					name);
 			int result = statement.executeUpdate(query);
-			
-			if(result >= 1) {
+
+			if (result >= 1) {
 				System.out.println("Salary is updated.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void updateSalaryUsingPreparedStatement(String name, int basic_pay) {
-		
-		try(Connection connection = getConnection()) {
+
+		try (Connection connection = getConnection()) {
 			String query = "update employee_payroll set basic_pay = ? where name = ?";
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setInt(1, basic_pay);
 			ps.setString(2, name);
 			int result = ps.executeUpdate();
-			
-			if(result >= 1) {
+
+			if (result >= 1) {
 				System.out.println("Salary is updated.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public List<Employee> retrieveDataUsingPreparedStatement() {
-		
+
 		List<Employee> empList = new ArrayList<>();
-		try(Connection connection = getConnection()) {
+		try (Connection connection = getConnection()) {
 			String query = "select * from employee_payroll where name = 'Terrisa'";
 			PreparedStatement ps = connection.prepareStatement(query);
 			ResultSet resultSet = ps.executeQuery();
-			
-			while(resultSet.next()) {
+
+			while (resultSet.next()) {
 				Employee employee = new Employee();
 				employee.setId(resultSet.getInt("id"));
 				employee.setName(resultSet.getString("name"));
@@ -106,12 +107,38 @@ public class EmployeePayRollRepository {
 
 				empList.add(employee);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return empList;
+
+	}
+
+	public List<Employee> retrieveDataUsingRange() {
 		
+		List<Employee> empList = new ArrayList<>();
+		try (Connection connection = getConnection()) {
+			String query = "select * from employee_payroll where startDate between '2022-01-01' and Date(now());";
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				Employee employee = new Employee();
+				employee.setId(resultSet.getInt("id"));
+				employee.setName(resultSet.getString("name"));
+				employee.setGender(resultSet.getString("gender").charAt(0));
+				employee.setPhoneno(resultSet.getString("phoneno"));
+				employee.setAddress(resultSet.getString("address"));
+				employee.setStartDate(resultSet.getDate("startDate"));
+
+				empList.add(employee);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return empList;
 	}
 }

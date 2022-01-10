@@ -9,12 +9,12 @@ public class EmployeePayRollService {
 		
 		EmployeePayRollService service = new EmployeePayRollService();
 		//service.retrieveData();
-		service.updateSalary();
+		service.updateSalary("Terrisa", 3000000);
 	}
 
-	private void updateSalary() {
+	private void updateSalary(String name, int basic_pay) {
 		
-		
+		respository.updateSalary(name.toLowerCase(), basic_pay);
 	}
 
 	private void retrieveData() {

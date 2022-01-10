@@ -51,4 +51,20 @@ public class EmployeePayRollRepository {
 		return empList;
 		
 	}
+
+	public void updateSalary(String name, int basic_pay) {
+		
+		try(Connection connection = getConnection()) {
+			Statement statement = connection.createStatement();
+			String query = String.format("update employee_payroll set basic_pay = %d where name = '%s'", basic_pay, name);
+			int result = statement.executeUpdate(query);
+			
+			if(result >= 1) {
+				System.out.println("Salary is updated.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

@@ -20,7 +20,7 @@ public class DeleteEmployee {
 		try {
 			String query = "delete from employee where id = ?";
 			PreparedStatement ps = connection.prepareStatement(query);
-			ps.setInt(1, 13); //Index no and phone no
+			ps.setInt(1, 13); //Index no and id
 			int rowCount = ps.executeUpdate();
 			System.out.println("Record Deleted successfully." + "Total Count: " + rowCount);
 		} catch (Exception e) {

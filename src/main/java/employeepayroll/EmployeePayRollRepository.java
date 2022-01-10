@@ -2,6 +2,7 @@ package employeepayroll;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -58,6 +59,24 @@ public class EmployeePayRollRepository {
 			Statement statement = connection.createStatement();
 			String query = String.format("update employee_payroll set basic_pay = %d where name = '%s'", basic_pay, name);
 			int result = statement.executeUpdate(query);
+			
+			if(result >= 1) {
+				System.out.println("Salary is updated.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void updateSalaryUsingPreparedStatement(String name, int basic_pay) {
+		
+		try(Connection connection = getConnection()) {
+			String query = "update employee_payroll set basic_pay = ? where name = ?";
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, basic_pay);
+			ps.setString(2, name);
+			int result = ps.executeUpdate();
 			
 			if(result >= 1) {
 				System.out.println("Salary is updated.");

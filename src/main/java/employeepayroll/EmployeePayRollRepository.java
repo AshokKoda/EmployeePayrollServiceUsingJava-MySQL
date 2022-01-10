@@ -11,7 +11,7 @@ import java.util.List;
 
 public class EmployeePayRollRepository {
 
-	private Connection getConnection() {
+	public Connection getConnection() {
 
 		Connection connection = null;
 		try {

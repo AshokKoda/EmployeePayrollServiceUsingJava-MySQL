@@ -24,7 +24,7 @@ public class JDBCTransaction {
 		try (Statement st = connection.createStatement()) {
 			String query = String.format(
 					"insert into employee(name,gender,phoneno,address,startDate)" + "values ('%s','%s','%s','%s','%s')",
-					"Test3", "F", "1234567890", "Address", Date.valueOf("2021-01-09"));
+					"Test7", "F", "1234567890", "Address", Date.valueOf("2021-01-09"));
 			int rowsAffected = st.executeUpdate(query, st.RETURN_GENERATED_KEYS);
 
 			if (rowsAffected == 1) {

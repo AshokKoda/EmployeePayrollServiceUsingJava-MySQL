@@ -25,5 +25,30 @@ public class EmployeePayRollRepository {
 		
 	}
 
-	
+	public List<Employee> retrieveData() {
+		
+		List<Employee> empList = new ArrayList<>();
+		try {
+			Connection connection = getConnection();
+			String query = "select * from employee;";
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(query);
+			
+			while(resultSet.next()) {
+				Employee employee = new Employee();
+				employee.setId(resultSet.getInt("id"));
+				employee.setName(resultSet.getString("name"));
+				employee.setGender(resultSet.getString("gender").charAt(0));
+				employee.setPhoneno(resultSet.getString("phoneno"));
+				employee.setAddress(resultSet.getString("address"));
+				employee.setStartDate(resultSet.getDate("startDate").toLocalDate());
+				empList.add(employee);
+			}
+		} catch (SQLException e) {
+		
+		}
+		
+		return empList;
+		
+	}
 }

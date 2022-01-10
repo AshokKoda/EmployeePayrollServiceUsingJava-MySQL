@@ -9,7 +9,14 @@ public class EmployeePayRollService {
 		EmployeePayRollService service = new EmployeePayRollService();
 		// service.retrieveData();
 		// service.updateSalary("Terrisa", 3000000);
-		service.updateSalaryUsingPreparedStatement("Lasya", 100000);
+		//service.updateSalaryUsingPreparedStatement("Lasya", 100000);
+		service.retrieveDataUsingPreparedStatement();
+	}
+
+	private void retrieveDataUsingPreparedStatement() {
+		
+		System.out.println(respository.retrieveDataUsingPreparedStatement());
+		
 	}
 
 	private void updateSalary(String name, int basic_pay) {

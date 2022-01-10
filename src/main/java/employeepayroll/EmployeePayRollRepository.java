@@ -42,7 +42,7 @@ public class EmployeePayRollRepository {
 				employee.setGender(resultSet.getString("gender").charAt(0));
 				employee.setPhoneno(resultSet.getString("phoneno"));
 				employee.setAddress(resultSet.getString("address"));
-				employee.setStartDate(resultSet.getDate("startDate").toLocalDate());
+				employee.setStartDate(resultSet.getDate("startDate"));
 				empList.add(employee);
 			}
 		} catch (SQLException e) {
@@ -84,6 +84,34 @@ public class EmployeePayRollRepository {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	public List<Employee> retrieveDataUsingPreparedStatement() {
+		
+		List<Employee> empList = new ArrayList<>();
+		try(Connection connection = getConnection()) {
+			String query = "select * from employee_payroll where name = 'Terrisa'";
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet resultSet = ps.executeQuery();
+			
+			while(resultSet.next()) {
+				Employee employee = new Employee();
+				employee.setId(resultSet.getInt("id"));
+				employee.setName(resultSet.getString("name"));
+				employee.setGender(resultSet.getString("gender").charAt(0));
+				employee.setPhoneno(resultSet.getString("phoneno"));
+				employee.setAddress(resultSet.getString("address"));
+				employee.setStartDate(resultSet.getDate("startDate"));
+
+				empList.add(employee);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return empList;
 		
 	}
 }

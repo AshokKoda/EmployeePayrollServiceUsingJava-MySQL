@@ -1,5 +1,6 @@
 package employeepayroll;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Employee {
@@ -9,7 +10,7 @@ public class Employee {
 	private char gender;
 	private String phoneno;
 	private String address;
-	private LocalDate startDate;
+	private Date startDate;
 
 	public int getId() {
 		return id;
@@ -51,11 +52,11 @@ public class Employee {
 		this.address = address;
 	}
 
-	public LocalDate getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
